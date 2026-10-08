@@ -4,7 +4,7 @@
 
 `assets/brand/` contains the existing XNote icons, SVG marks and motion reference supplied with this personal project. They are retained as project resources; no downloaded illustration, personal course screenshot, dataset, model weight or user-imported document is added. `docs/images/demo.png` is captured by the bundled test using synthetic text. / 保留原项目品牌资源，演示截图使用合成文字；未添加下载插画、个人课程截图、数据集、模型权重或用户文件。
 
-The project uses the owner-confirmed [MIT License](../LICENSE). Third-party package licenses remain separate. / 本项目采用作者确认的 [MIT 许可证](../LICENSE)；第三方许可证独立适用。
+The current project publication reserves all rights and grants no open-source license; see [copyright and permissions](../COPYRIGHT.md). Third-party package licenses remain separate and are not restricted by this notice. / 当前项目发布保留所有权利，不授予开源许可证，详见 [著作权与授权](../COPYRIGHT.md)；第三方许可证独立适用，不受本项目声明限制。
 
 ## Direct runtime packages / 直接运行依赖
 

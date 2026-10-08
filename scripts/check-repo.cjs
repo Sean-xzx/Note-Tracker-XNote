@@ -46,7 +46,7 @@ for (const file of files) {
     }
   }
 }
-for (const name of ['README.md', 'README.zh-CN.md', 'LICENSE', 'package-lock.json', '.github/workflows/ci.yml']) {
+for (const name of ['README.md', 'README.zh-CN.md', 'COPYRIGHT.md', 'package-lock.json', '.github/workflows/ci.yml']) {
   assert(files.includes(name), `Required file not tracked: ${name}`)
 }
 assert(fs.readFileSync(path.join(root, 'README.md'), 'utf8').includes('(README.zh-CN.md)'))
@@ -55,8 +55,10 @@ const commands = (name) => [...fs.readFileSync(path.join(root, name), 'utf8').ma
 assert.deepEqual(commands('README.md'), commands('README.zh-CN.md'), 'Bilingual commands/examples must match')
 const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
 const lock = JSON.parse(fs.readFileSync(path.join(root, 'package-lock.json'), 'utf8'))
-for (const kind of ['dependencies', 'devDependencies', 'engines']) {
+for (const kind of ['dependencies', 'devDependencies', 'engines', 'license']) {
   assert.deepEqual(pkg[kind], lock.packages[''][kind], `Lock metadata mismatch: ${kind}`)
 }
+assert.equal(pkg.license, 'UNLICENSED', 'Project metadata must not grant an open-source license')
+assert(!files.includes('LICENSE'), 'Obsolete project license must not be published')
 console.log(`PASS publication inventory, credential/path checks, README links and lock metadata (${files.length} files)`)
 console.log('Pattern checks complement manual review; they are not a guarantee that every secret is detectable.')

@@ -4,7 +4,7 @@
   "description": "A minimal markdown notes app with spaced repetition",
   "main": "./out/main/index.js",
   "author": "seannelson929",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "private": true,
   "engines": {
     "node": ">=22 <23",

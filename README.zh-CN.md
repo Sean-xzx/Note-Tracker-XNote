@@ -1,6 +1,6 @@
 # XNote
 
-[English](README.md) · [架构说明](docs/architecture.md) · [验证记录](docs/validation.md)
+[English](README.md) · [架构说明](docs/architecture.md) · [验证记录](docs/validation.md) · [著作权与授权](COPYRIGHT.md)
 
 一个结合 Markdown、文档标注、间隔复习和可选 AI 助手的本地桌面笔记软件。
 
@@ -28,6 +28,8 @@ XNote 是个人学习项目，当前版本 **0.1.0**。适合把课程笔记和�
 安装 Git 和带 npm 的 Node.js。安装过程需要访问 npm、Electron 和原生模块下载服务。如果没有可用的原生预编译模块，可能需要 Python 3 和包含 C++ 支持的 Visual Studio Build Tools。其余应用依赖均由锁文件声明，无须安装全局应用包。
 
 ## 快速开始
+
+以下安装、使用和开发说明仅供作者及事先取得书面许可的使用者使用。公开可查看不代表允许运行或修改软件，详见 [著作权与授权](COPYRIGHT.md)。
 
 ```powershell
 git clone https://github.com/Sean-xzx/note-tracker-XNote.git
@@ -121,10 +123,10 @@ npm run test:package
 
 ## 开发与反馈
 
-使用 `npm run dev` 开发，提交前运行 `npm run verify`。通过小范围 Pull Request 或 [Issue](https://github.com/Sean-xzx/note-tracker-XNote/issues) 提供操作系统、Node/Electron 版本、复现步骤、预期/实际表现和脱敏日志。不要附上个人配置或密钥。本项目为个人维护，没有承诺支持时间表。
+作者或明确获准的开发者可使用 `npm run dev` 开发，提交已获准的修改前运行 `npm run verify`。其他读者可提交 [Issue](https://github.com/Sean-xzx/note-tracker-XNote/issues) 或申请授权；未经事先书面许可，不得修改代码或功能。报告问题时提供操作系统、Node/Electron 版本、复现步骤、预期/实际表现和脱敏日志。不要附上个人配置或密钥。本项目为个人维护，没有承诺支持时间表。
 
 本地旧 `.shots` 实验、历史 ChatGPT 上下文、私人诊断资料、依赖和旧安装包不会上传；可移植回归测试和当前文档提供正式复现入口。
 
-## 许可证与致谢
+## 著作权、授权与致谢
 
-本项目按作者确认采用 [MIT 许可证](LICENSE)。依赖和资源范围见 [第三方说明](docs/THIRD_PARTY.md)。用户导入文件和外部服务输出不随仓库分发，运行依赖保留各自许可证。
+版权所有 (c) 2026 Sean-xzx。**保留所有权利，当前发布不授予开源许可证。** 公开展示用于查看；其他使用，包括运行、复制、修改功能、创作衍生作品或再分发，须事先取得书面许可，但以适用法律和 GitHub 平台条款为准。详见 [著作权与授权](COPYRIGHT.md)，其中说明了此前 MIT 发布版本以及 GitHub 平台查看/Fork 的边界。依赖和资源范围见 [第三方说明](docs/THIRD_PARTY.md)。用户导入文件和外部服务输出不随仓库分发，运行依赖保留各自许可证。

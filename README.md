@@ -1,6 +1,6 @@
 # XNote
 
-[简体中文](README.zh-CN.md) · [Architecture](docs/architecture.md) · [Validation](docs/validation.md)
+[简体中文](README.zh-CN.md) · [Architecture](docs/architecture.md) · [Validation](docs/validation.md) · [Copyright and permissions](COPYRIGHT.md)
 
 A local desktop notebook combining Markdown, document annotations, spaced repetition and optional AI assistance.
 
@@ -28,6 +28,8 @@ Validated locally: **Windows 11 x64**, **Node.js 22.23.2**, **npm 10.9.8**, lock
 Install Git and Node.js with npm. Installation needs internet access to npm, Electron downloads and native-module downloads. If a native prebuilt binary is unavailable, Python 3 and Visual Studio Build Tools with C++ support may be needed. All other application dependencies are declared in the lockfile; do not install global application packages.
 
 ## Quick start
+
+The following installation, usage and development instructions are for the owner and users with prior written permission. Public access does not authorize running or modifying the software; see [copyright and permissions](COPYRIGHT.md).
 
 ```powershell
 git clone https://github.com/Sean-xzx/note-tracker-XNote.git
@@ -121,10 +123,10 @@ npm run test:package
 
 ## Development and feedback
 
-Use `npm run dev` for development and `npm run verify` before proposing changes. Submit a focused pull request or [issue](https://github.com/Sean-xzx/note-tracker-XNote/issues) with OS, Node/Electron versions, steps, expected/actual behavior and redacted logs. Do not attach your profile or keys. This is a personal project with no guaranteed support schedule.
+For the owner or expressly authorized developers, use `npm run dev` for development and `npm run verify` before submitting an authorized change. Other readers may submit an [issue](https://github.com/Sean-xzx/note-tracker-XNote/issues) or request permission; do not modify code or functionality without prior written permission. Include OS, Node/Electron versions, steps, expected/actual behavior and redacted logs when reporting a problem. Do not attach your profile or keys. This is a personal project with no guaranteed support schedule.
 
 Older local `.shots` experiments, historical ChatGPT context documents, private diagnostic files, dependencies and previous installers are deliberately excluded; the portable regression tests and current documentation provide the supported reproduction path.
 
-## License and acknowledgements
+## Copyright, permissions and acknowledgements
 
-This project is licensed under the [MIT License](LICENSE), as confirmed by the owner. See [third-party notices](docs/THIRD_PARTY.md) for dependency/resource scope. User-imported documents and external-service outputs are not bundled. Runtime dependencies retain their own licenses.
+Copyright (c) 2026 Sean-xzx. **All rights reserved. No open-source license is granted for the current publication.** Public visibility is for inspection; other use, including running, copying, modifying functionality, creating derivatives or redistribution, requires prior written permission, subject to applicable law and GitHub's platform terms. See [copyright and permissions](COPYRIGHT.md), including the limitations concerning previously MIT-published versions and GitHub viewing/forking. See [third-party notices](docs/THIRD_PARTY.md) for dependency/resource scope. User-imported documents and external-service outputs are not bundled. Runtime dependencies retain their own licenses.
