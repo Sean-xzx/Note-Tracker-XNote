@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Lock down what the renderer can load; loosen only if you add remote assets.
+         blob: enables the pdf.js web worker; xnote-file: streams library images. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' blob:; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: xnote-file: xnote-local: https: http:; font-src 'self' data:; connect-src 'self' data: blob: xnote-file:;"
+    />
+    <title>XNote</title>
+    <!-- Cold-start splash: inline so it is part of the very first paint. Only the
+         marker "swipe": highlighter sweeps in, ink draws, wordmark rises 4px. -->
+    <style>
+      #splash {
+        display: none;
+      }
+      .splash-on #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #faf7f2;
+        pointer-events: none; /* never blocks: the first click also reaches the app */
+      }
+      .splash-on:not(.splash-play) #splash * {
+        animation-play-state: paused;
+      }
+      #splash.leaving {
+        opacity: 0;
+        transition: opacity 200ms cubic-bezier(0.4, 0, 1, 1);
+      }
+      .splash-inner {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .splash-mark .xn-hl {
+        fill: var(--brand-clay, #d08a52);
+        transform-box: fill-box;
+        transform-origin: left center;
+        animation: xs-hl 320ms cubic-bezier(0.65, 0, 0.35, 1) both;
+      }
+      .splash-mark .xn-ink {
+        stroke: var(--brand-ink, #2b2622);
+        animation: xs-ink 360ms cubic-bezier(0.65, 0, 0.35, 1) 240ms both;
+      }
+      .splash-word {
+        font: 600 34px/1 Georgia, 'Times New Roman', serif;
+        letter-spacing: -0.02em;
+        color: var(--brand-ink, #2b2622);
+        animation: xs-word 300ms cubic-bezier(0.2, 0, 0, 1) 460ms both;
+      }
+      @keyframes xs-hl {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+      @keyframes xs-ink {
+        from {
+          stroke-dashoffset: 1;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      @keyframes xs-word {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .splash-mark .xn-hl,
+        .splash-mark .xn-ink,
+        .splash-word {
+          animation: none;
+        }
+        #splash.leaving {
+          transition-duration: 1ms;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="splash" aria-hidden="true">
+      <div class="splash-inner">
+        <svg class="splash-mark" viewBox="20 20 60 60" width="56" height="56">
+          <g transform="translate(50 50) rotate(-50)">
+            <polygon class="xn-hl" points="-26,-9 28,-9 24,9 -30,9" />
+          </g>
+          <line
+            class="xn-ink"
+            x1="31"
+            y1="27"
+            x2="69"
+            y2="73"
+            pathLength="1"
+            stroke-width="7"
+            stroke-linecap="round"
+            stroke-dasharray="1"
+          />
+        </svg>
+        <span class="splash-word">XNote</span>
+      </div>
+    </div>
+    <script src="./splash-boot.js"></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

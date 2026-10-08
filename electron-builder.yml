@@ -1,0 +1,59 @@
+appId: com.xnote.app
+productName: XNote
+copyright: Copyright © 2026
+
+# App icon: single source in assets/brand/ (xnote.ico holds 16–256px; icon.png is 1024px).
+icon: assets/brand/icon.png
+
+directories:
+  buildResources: assets/brand
+  output: release
+
+# Publish only built application files and package metadata. electron-builder
+# includes production dependencies automatically. Local profiles and notes must
+# never enter the packaged application.
+files:
+  - 'out/**/*'
+  - 'package.json'
+
+# better-sqlite3 ships a native .node binary that cannot run from inside the asar.
+# Keep it (and any other native addon) unpacked so it loads at runtime.
+asarUnpack:
+  - '**/*.node'
+  - '**/node_modules/better-sqlite3/**'
+
+# Rebuild native modules against the bundled Electron's ABI when packaging.
+npmRebuild: true
+
+# Ship the icon as a resource so the window/taskbar can load it at runtime
+# (resources/xnote.ico; see iconPath in src/main/index.ts). electron-builder also
+# embeds win.icon into XNote.exe itself.
+extraResources:
+  - from: assets/brand/xnote.ico
+    to: xnote.ico
+
+win:
+  executableName: XNote
+  icon: assets/brand/xnote.ico
+  target:
+    - target: nsis
+    - target: portable
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: XNote
+  installerIcon: assets/brand/xnote.ico
+  uninstallerIcon: assets/brand/xnote.ico
+  # only used by one-click installers (ours is assisted); set for completeness
+  installerHeaderIcon: assets/brand/xnote.ico
+  uninstallDisplayName: XNote ${version}
+  artifactName: ${productName}-${version}-Setup.${ext}
+  # Keep user data (%APPDATA%/xnote) on uninstall — do not wipe notes/DB.
+  deleteAppDataOnUninstall: false
+
+portable:
+  artifactName: ${productName}-${version}-Portable.${ext}

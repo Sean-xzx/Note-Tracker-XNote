@@ -1,0 +1,2 @@
+# Preserve the existing source bytes and line endings during import and clone.
+* -text

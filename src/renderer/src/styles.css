@@ -1,0 +1,433 @@
+/* Structural base + document-rendering internals (pdf.js text layer, annotation
+   overlays, sheets, AI chat bubbles…). Visual values come from the design tokens
+   in design.css, which is loaded after this file and owns all component styling. */
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+
+/* ---- App shell ---------------------------------------------------------- */
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+.main-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.main-inner {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.editor-body {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+/* window-wide drop target for OS files */
+.app.drag-over::after {
+  content: '';
+  position: fixed;
+  inset: var(--sp-2);
+  border: 2px dashed var(--accent);
+  border-radius: var(--r-lg);
+  background: var(--accent-softer);
+  pointer-events: none;
+  z-index: 50;
+}
+.app-drop-hint {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--accent);
+  color: var(--text-on-accent);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  pointer-events: none;
+  z-index: 51;
+}
+
+/* ---- Document frame ----------------------------------------------------- */
+.doc-frame {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  position: relative;
+}
+.doc-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.doc-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.doc-substrate {
+  user-select: text;
+}
+
+/* rendered document structure (markdown preview + docx); type scale lives in design.css */
+.doc-view ul,
+.doc-view ol,
+.preview ul,
+.preview ol {
+  margin: 0 0 0.9em;
+  padding-left: 1.6em;
+}
+.doc-view li,
+.preview li {
+  margin: 0.2em 0;
+}
+.doc-view pre code,
+.preview pre code {
+  background: none;
+  padding: 0;
+}
+.doc-view img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--r-sm);
+  margin: var(--sp-2) 0;
+}
+.doc-view table,
+.preview table {
+  border-collapse: collapse;
+  margin: 0.6em 0;
+  font-size: 0.95em;
+}
+.doc-view td,
+.doc-view th,
+.preview td,
+.preview th {
+  padding: 0.3em 0.65em;
+}
+
+/* editable / read-only plain-text substrate */
+.doc-textarea {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+}
+.doc-textarea.read {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+  cursor: text;
+  margin: 0;
+}
+
+/* ---- PDF ---------------------------------------------------------------- */
+.pdf-pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.pdf-page {
+  position: relative;
+  flex-shrink: 0;
+}
+.pdf-canvas {
+  display: block;
+}
+.pdf-layers {
+  position: absolute;
+  inset: 0;
+}
+/* pdf.js text layer — transparent, selectable text aligned over the canvas */
+.textLayer {
+  position: absolute;
+  text-align: initial;
+  inset: 0;
+  overflow: clip;
+  opacity: 1;
+  line-height: 1;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+  caret-color: CanvasText;
+  z-index: 1;
+}
+.textLayer :is(span, br) {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+.textLayer span.markedContent {
+  top: 0;
+  height: 0;
+}
+.textLayer .endOfContent {
+  display: block;
+  position: absolute;
+  inset: 100% 0 0;
+  z-index: -1;
+  cursor: default;
+  user-select: none;
+}
+.textLayer ::selection {
+  background: var(--accent-ring);
+}
+
+/* ---- Image -------------------------------------------------------------- */
+.image-stage {
+  min-height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+}
+.image-holder {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+.pdf-page.rect-mode,
+.image-holder.rect-mode {
+  cursor: crosshair;
+}
+
+/* ---- Annotation overlays (behind the text, never mutate the DOM) --------- */
+.anno-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.html-anno-wrap {
+  position: relative;
+}
+.html-anno-wrap > .doc-substrate {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+.anno-ov {
+  position: absolute;
+  border-radius: var(--r-2xs);
+}
+.anno-ov-highlight {
+  background: var(--c-bg);
+}
+.anno-ov-comment {
+  background: var(--c-bg);
+  border-bottom: 2px dotted var(--c-line);
+}
+.anno-ov-underline {
+  border-bottom: 2px solid var(--c-line);
+}
+.anno-ov-wavy::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: var(--c-line);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='3'%3E%3Cpath d='M0 2 Q1.5 -0.5 3 2 T6 2' stroke='black' fill='none' stroke-width='1'/%3E%3C/svg%3E") repeat-x bottom / 6px 3px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='3'%3E%3Cpath d='M0 2 Q1.5 -0.5 3 2 T6 2' stroke='black' fill='none' stroke-width='1'/%3E%3C/svg%3E") repeat-x bottom / 6px 3px;
+}
+.anno-ov.active {
+  box-shadow: 0 0 0 1.5px var(--c-line);
+}
+/* rect regions (pdf + image) */
+.pdf-anno-rect,
+.img-anno-rect {
+  position: absolute;
+  background: var(--c-bg);
+  border: 1.5px solid var(--c-line);
+  border-radius: var(--r-xs);
+  z-index: 2;
+  cursor: pointer;
+}
+.pdf-anno-rect.active,
+.img-anno-rect.active {
+  box-shadow: 0 0 0 2px var(--c-line);
+}
+.pdf-anno-rect.draft,
+.img-anno-rect.draft {
+  background: var(--accent-soft);
+  border: 1.5px dashed var(--accent);
+  pointer-events: none;
+}
+
+/* ---- Sheets (csv / xlsx) ------------------------------------------------- */
+.sheet-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.sheet-tabs {
+  display: flex;
+  gap: var(--sp-1);
+  padding: var(--sp-2) var(--sp-3);
+  box-shadow: 0 1px 0 var(--hairline);
+  background: var(--surface-2);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.sheet-tab {
+  height: 26px;
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-micro) var(--ease-out),
+    color var(--dur-micro) var(--ease-out);
+}
+.sheet-tab:hover {
+  background: var(--surface-hover);
+  color: var(--text-1);
+}
+.sheet-tab.active {
+  background: var(--accent-soft);
+  color: var(--text-1);
+}
+.sheet-table {
+  flex: 1;
+  overflow: auto;
+  padding: var(--sp-4) var(--sp-5);
+}
+.sheet-table table {
+  border-collapse: collapse;
+}
+.sheet-table td,
+.sheet-table th {
+  border: 1px solid var(--hairline-strong);
+  padding: 0.35em 0.75em;
+  text-align: left;
+  white-space: nowrap;
+}
+.sheet-table tr:first-child td {
+  background: var(--surface-1);
+  font-weight: var(--fw-semibold);
+}
+.sheet-truncated {
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+/* ---- Timeline ----------------------------------------------------------- */
+.tl-scroll {
+  padding: 0;
+}
+
+/* ---- Settings ----------------------------------------------------------- */
+.settings-providers {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3);
+}
+.settings-index-by {
+  color: var(--text-2);
+}
+.settings-index-status {
+  font-size: var(--fs-sm);
+  color: var(--text-1);
+  margin-bottom: var(--sp-3);
+}
+.settings-progress {
+  margin-bottom: var(--sp-3);
+}
+.settings-progress-label {
+  margin-top: var(--sp-1h);
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.settings-hint {
+  margin: var(--sp-3) 0 0;
+}
+
+/* ---- AI panel internals -------------------------------------------------- */
+.ai-conv-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-0h);
+  padding: var(--sp-1);
+  margin-bottom: var(--sp-2);
+}
+.ai-conv-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-0h);
+  border-radius: var(--r-sm);
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.ai-conv-item:hover {
+  background: var(--surface-hover);
+}
+.ai-conv-item.active {
+  background: var(--accent-soft);
+}
+.ai-conv-item.new {
+  justify-content: center;
+  padding: var(--sp-2);
+  border: 1px dashed var(--hairline-strong);
+  color: var(--accent);
+  background: transparent;
+  cursor: pointer;
+  font-size: var(--fs-xs);
+}
+.ai-conv-open {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  padding: 7px 9px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+.ai-conv-item-title {
+  font-size: var(--fs-sm);
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.ai-conv-item-time {
+  font-size: var(--fs-2xs);
+  color: var(--text-3);
+}
