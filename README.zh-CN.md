@@ -30,8 +30,8 @@ XNote 是个人学习项目，当前版本 **0.1.0**。适合把课程笔记和�
 ## 快速开始
 
 ```powershell
-git clone https://github.com/Sean-xzx/XNote.git
-cd XNote
+git clone https://github.com/Sean-xzx/note-tracker-XNote.git
+cd note-tracker-XNote
 npm ci --no-audit --no-fund
 npm run rebuild
 npm run dev
@@ -121,10 +121,10 @@ npm run test:package
 
 ## 开发与反馈
 
-使用 `npm run dev` 开发，提交前运行 `npm run verify`。通过小范围 Pull Request 或 [Issue](https://github.com/Sean-xzx/XNote/issues) 提供操作系统、Node/Electron 版本、复现步骤、预期/实际表现和脱敏日志。不要附上个人配置或密钥。本项目为个人维护，没有承诺支持时间表。
+使用 `npm run dev` 开发，提交前运行 `npm run verify`。通过小范围 Pull Request 或 [Issue](https://github.com/Sean-xzx/note-tracker-XNote/issues) 提供操作系统、Node/Electron 版本、复现步骤、预期/实际表现和脱敏日志。不要附上个人配置或密钥。本项目为个人维护，没有承诺支持时间表。
 
 本地旧 `.shots` 实验、历史 ChatGPT 上下文、私人诊断资料、依赖和旧安装包不会上传；可移植回归测试和当前文档提供正式复现入口。
 
 ## 许可证与致谢
 
-现有包元数据声明 MIT；公开发布前需由作者确认完整许可证决定。依赖和资源范围见 [第三方说明](docs/THIRD_PARTY.md)。用户导入文件和外部服务输出不随仓库分发，运行依赖保留各自许可证。
+本项目按作者确认采用 [MIT 许可证](LICENSE)。依赖和资源范围见 [第三方说明](docs/THIRD_PARTY.md)。用户导入文件和外部服务输出不随仓库分发，运行依赖保留各自许可证。

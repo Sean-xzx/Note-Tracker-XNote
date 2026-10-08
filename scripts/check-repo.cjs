@@ -46,7 +46,7 @@ for (const file of files) {
     }
   }
 }
-for (const name of ['README.md', 'README.zh-CN.md', 'package-lock.json', '.github/workflows/ci.yml']) {
+for (const name of ['README.md', 'README.zh-CN.md', 'LICENSE', 'package-lock.json', '.github/workflows/ci.yml']) {
   assert(files.includes(name), `Required file not tracked: ${name}`)
 }
 assert(fs.readFileSync(path.join(root, 'README.md'), 'utf8').includes('(README.zh-CN.md)'))

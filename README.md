@@ -30,8 +30,8 @@ Install Git and Node.js with npm. Installation needs internet access to npm, Ele
 ## Quick start
 
 ```powershell
-git clone https://github.com/Sean-xzx/XNote.git
-cd XNote
+git clone https://github.com/Sean-xzx/note-tracker-XNote.git
+cd note-tracker-XNote
 npm ci --no-audit --no-fund
 npm run rebuild
 npm run dev
@@ -121,10 +121,10 @@ npm run test:package
 
 ## Development and feedback
 
-Use `npm run dev` for development and `npm run verify` before proposing changes. Submit a focused pull request or [issue](https://github.com/Sean-xzx/XNote/issues) with OS, Node/Electron versions, steps, expected/actual behavior and redacted logs. Do not attach your profile or keys. This is a personal project with no guaranteed support schedule.
+Use `npm run dev` for development and `npm run verify` before proposing changes. Submit a focused pull request or [issue](https://github.com/Sean-xzx/note-tracker-XNote/issues) with OS, Node/Electron versions, steps, expected/actual behavior and redacted logs. Do not attach your profile or keys. This is a personal project with no guaranteed support schedule.
 
 Older local `.shots` experiments, historical ChatGPT context documents, private diagnostic files, dependencies and previous installers are deliberately excluded; the portable regression tests and current documentation provide the supported reproduction path.
 
 ## License and acknowledgements
 
-The existing package metadata declares MIT; the full licensing decision must be confirmed by the owner before public publication. See [third-party notices](docs/THIRD_PARTY.md) for dependency/resource scope. User-imported documents and external-service outputs are not bundled. Runtime dependencies retain their own licenses.
+This project is licensed under the [MIT License](LICENSE), as confirmed by the owner. See [third-party notices](docs/THIRD_PARTY.md) for dependency/resource scope. User-imported documents and external-service outputs are not bundled. Runtime dependencies retain their own licenses.
