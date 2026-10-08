@@ -1,4 +1,8 @@
-# Architecture / 架构
+# Note-Tracker-XNote — Architecture / 架构
+
+Start with the [README](../README.md) / [中文概览](../README.zh-CN.md). For setup and data backup, use the [usage guide](usage.md); for individual files, use the [source map](source-map.md).
+
+**Reading order / 阅读主线:** UI → preload API → main services → storage. Library entries share stable IDs across editing, annotations, review and AI. / 界面经桥接层请求主进程，主进程读写数据；编辑、标注、复习和 AI 共用稳定的条目 ID。
 
 This document describes the current source, not a promise that every external provider or file format has been tested. / 本文说明当前源码结构，不代表每种外部服务或文件格式均已实测。
 

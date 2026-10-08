@@ -12,7 +12,7 @@ try {
   hasGitIndex = true
 } catch {
   files = ['src', 'assets', 'scripts', 'tests', '.github'].flatMap((d) => walk(path.join(root, d)).map((p) => path.relative(root, p).replaceAll('\\', '/')))
-  files.push(...['docs/architecture.md', 'docs/validation.md', 'docs/THIRD_PARTY.md', 'docs/images/demo.png'])
+  files.push(...['docs/architecture.md', 'docs/usage.md', 'docs/validation.md', 'docs/THIRD_PARTY.md', 'docs/images/demo.png'])
   files.push(...fs.readdirSync(root).filter((p) => fs.statSync(path.join(root, p)).isFile()))
 }
 assert(files.length > 0, 'No repository files found')

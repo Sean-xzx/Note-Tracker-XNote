@@ -1,4 +1,8 @@
-# Validation / 验证记录
+# Note-Tracker-XNote — Validation / 验证记录
+
+[Overview / 项目概览](../README.md) · [中文概览](../README.zh-CN.md) · [Usage / 使用指南](usage.md) · [Current CI / 最新自动检查](https://github.com/Sean-xzx/Note-Tracker-XNote/actions)
+
+**Verified / 已验证:** Windows clean installation, offline Electron workflows and unpacked executable startup with note save/read. **Unverified / 未验证:** real paid AI, other platforms and signed installers. Details below distinguish functional checks from release/security guarantees. / 下文区分功能检查与发行、安全保证。
 
 Snapshot date / 记录日期: **2026-10-08**. Environment / 环境: Windows 11 Home x64 (10.0.26200), Node 22.23.2, npm 10.9.8, Electron 33.4.11.
 

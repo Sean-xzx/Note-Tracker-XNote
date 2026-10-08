@@ -1,4 +1,4 @@
-# Copyright and permissions / 著作权与授权
+# Note-Tracker-XNote — Copyright and permissions / 著作权与授权
 
 Copyright (c) 2026 Sean-xzx. All rights reserved. / 版权所有 (c) 2026 Sean-xzx，保留所有权利。
 
@@ -8,7 +8,7 @@ This project is publicly visible for inspection. No open-source license or gener
 
 本项目公开用于查看。本次发布不提供开源许可证，也不授予一般的软件使用许可。除适用法律或 GitHub 服务条款要求的权利外，使用、运行、复制、修改（包括修改功能）、创作衍生作品、再分发、再许可或商业利用作者的代码、文档和原创项目资源，均须事先取得著作权人的书面许可。公开展示、构建说明和 Issue 讨论不构成上述许可。
 
-Contact [Sean-xzx](https://github.com/Sean-xzx) or open a [permission-request issue](https://github.com/Sean-xzx/note-tracker-XNote/issues) before any such use. A request is not an approval. / 如需上述使用，请联系 [Sean-xzx](https://github.com/Sean-xzx)，或提交 [授权申请 Issue](https://github.com/Sean-xzx/note-tracker-XNote/issues)。提出申请不代表已获批准。
+Contact [Sean-xzx](https://github.com/Sean-xzx) or open a [permission-request issue](https://github.com/Sean-xzx/Note-Tracker-XNote/issues) before any such use. A request is not an approval. / 如需上述使用，请联系 [Sean-xzx](https://github.com/Sean-xzx)，或提交 [授权申请 Issue](https://github.com/Sean-xzx/Note-Tracker-XNote/issues)。提出申请不代表已获批准。
 
 ## GitHub and third-party scope / GitHub 与第三方范围
 

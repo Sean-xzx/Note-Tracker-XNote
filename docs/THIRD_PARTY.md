@@ -1,4 +1,4 @@
-# Resources and third-party software / 资源与第三方软件
+# Note-Tracker-XNote — Resources and third-party software / 资源与第三方软件
 
 ## Project resources / 项目资源
 
