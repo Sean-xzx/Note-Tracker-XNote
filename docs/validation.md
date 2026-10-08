@@ -45,6 +45,8 @@ The unpacked application was then built successfully with the documented overrid
 
 The lockfile's Electron node-gyp Git URL was changed from SSH to HTTPS while retaining the exact commit. `@electron/asar` 3.4.1, already present in the locked builder dependency tree, is now explicitly declared as a development dependency for package verification. Existing dependency versions and all 82 application source files remain unchanged. / 仅把同一 node-gyp 提交的获取地址改为 HTTPS，并明确声明原已锁定的 ASAR 测试工具；原依赖版本及 82 个核心源码文件不变。
 
+The final dependency metadata was also installed with separate empty npm/Electron caches, empty npm user/global configuration, and Git system/global configuration disabled. Anonymous public HTTPS access was checked; installation, native rebuilding and the complete verification pipeline passed without the author's Git credentials or private npm settings. / 最终依赖元数据又在空缓存、空 npm 配置及禁用 Git 系统/全局配置的条件下安装，公开 HTTPS 获取、原生重建和完整验证通过，不依赖作者私人 Git 认证或 npm 设置。
+
 ## Unverified / 未验证
 
 `npm audit --omit=dev --json` on the retained lockfile reported 14 vulnerability entries: 1 critical, 4 high, 3 moderate and 6 low. Directly named dependencies include DOMPurify, Mammoth, Mermaid, PDF.js, rehype-katex, remark-math and xlsx; the critical entry is transitive `tar`. These are npm's dependency-level results, not a demonstrated exploit in XNote. No automatic fix or dependency replacement was applied because this task preserves the existing application behavior. / 生产依赖审计有 14 项记录，严重项为间接 tar；未进行自动修复或替换依赖，也未宣称已安全加固。Raw audit evidence stays in local ignored test artifacts. / 原始结果保留在本地测试资料中。
